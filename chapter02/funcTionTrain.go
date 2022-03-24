@@ -28,25 +28,27 @@ const (
 //新增任务列表
 var taskInfo = make([]map[string]string, 0)
 
+// 输入信息
+func inputInfo(input string) string {
+	var text string
+	fmt.Print(input)
+	fmt.Scan(&text)
+	return text
+}
 func createNewTask() {
-	var input string
+	//var input string
 	taskInfoListsub := initTaskList()
-	fmt.Print("任务名称: ")
-	fmt.Scan(&input)
-	if taskNameDeduplication(input) {
+	fmt.Println("请输入信息 ")
+	//fmt.Scan(&input)
+	if1 := inputInfo("任务名: ")
+	if taskNameDeduplication(if1) {
 		fmt.Println("任务名重复")
 		return
 	} else {
-		taskInfoListsub[name] = input
+		taskInfoListsub[name] = if1
 	}
-	//fmt.Scan(&input)
-	//taskInfoListsub[name] = input
-	fmt.Print("开始时间: ")
-	fmt.Scan(&input)
-	taskInfoListsub[start_time] = input
-	fmt.Print("负责人: ")
-	fmt.Scan(&input)
-	taskInfoListsub[user] = input
+	taskInfoListsub[start_time] = inputInfo("开始时间: ")
+	taskInfoListsub[user] = inputInfo("负责人: ")
 	taskInfo = append(taskInfo, taskInfoListsub)
 	fmt.Println("任务添加成功")
 }
@@ -88,12 +90,13 @@ func initTaskList() map[string]string {
 
 //查询任务信息
 func queryTask() {
-	fmt.Print("请输入查询信息: ")
-	var inputText string
-	fmt.Scan(&inputText)
+	inputText := inputInfo("请输入查询信息: ")
+	//all 显示全部
 	for _, taskKey := range taskInfo {
-		if strings.Contains(taskKey[name], inputText) {
+		if inputText == "all" || strings.Contains(taskKey[name], inputText) {
 			printQueryTask(taskKey)
+		} else {
+			fmt.Println("查询的信息不存在")
 		}
 	}
 }
@@ -114,10 +117,7 @@ func printQueryTask(task map[string]string) {
 //var taskInfo = make([]map[string]string,0)
 func main() {
 	for {
-		fmt.Print("请输入要操作的指令(add/query/modify/delete/exit): ")
-		var inputText string
-		fmt.Scan(&inputText)
-		switch inputText {
+		switch inputInfo("请输入要操作的指令(add/query/modify/delete/exit): ") {
 		case "add":
 			createNewTask()
 		case "query":
