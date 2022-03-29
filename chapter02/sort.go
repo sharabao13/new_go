@@ -120,6 +120,7 @@ Free at last! Free at last!
 
 Thank God Almighty, we are free at last!
 `
+
 	article_stats := make(map[rune]int)
 
 	for _, v := range article {
@@ -129,10 +130,10 @@ Thank God Almighty, we are free at last!
 	}
 
 	sliceStats := make([][]int, 0, len(article_stats))
+	//fmt.Printf("%T,%#v\n",sliceStats,sliceStats)
 	for k1, v1 := range article_stats {
 		sliceStats = append(sliceStats, []int{int(k1), v1})
 	}
-
 	sort.Slice(sliceStats, func(i, j int) bool { return sliceStats[i][1] > sliceStats[j][1] })
 	fmt.Println(sliceStats)
 	for i1, v1 := range sliceStats[:10] {
@@ -140,4 +141,5 @@ Thank God Almighty, we are free at last!
 		fmt.Printf("%d,%c,%d\n", i1+1, v1[0], v1[1])
 	}
 	//fmt.Println(article_stats)
+	//fmt.Println(len(article))
 }
